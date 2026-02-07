@@ -16,7 +16,6 @@ echo "Length of the shortest sequence:" $shortest_seq
     average_seq=$(($total_length / $number_of_seq)) 
 echo "Average sequence length:" $average_seq
 
-    amount_GC=$(awk '{gc_count += gsub(/[GgCc]/, "", $1)} END {print gc_count}' $1)
-    share_GC=$(awk 'BEGIN{print 10/5}' $1 ) 
-    percentage_GC=$(awk 'BEGIN{print 10*100}' $1)
-echo "GC Content (%):" $share_GC
+    amount_GC=$(awk ' !/>/ {gc_count += gsub(/[GgCc]/, "", $1)} END {print gc_count}' $1)
+    percentage_GC=$(echo "scale=2; $amount_GC / $total_length *100" |bc)
+echo "GC Content (%):" $percentage_GC
