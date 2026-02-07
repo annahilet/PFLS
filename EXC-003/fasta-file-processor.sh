@@ -1,5 +1,22 @@
-for fasta in *.fa  
-do 
-    number_of_sequences=$(grep '>' $fasta | wc -l)
-    echo "The total number of sequences": $number_of_sequences
-done 
+echo "FASTA File Statistics:"
+echo "----------------------"
+
+    number_of_seq=$(grep '>' $1 | wc -l)
+echo "Number of sequences:" $number_of_seq
+        
+    total_length=$(awk '!/>/ {printf $0}' $1 | wc -c)
+echo "Total length of sequences:" $total_length
+
+    longest_seq=$(awk '!/>/{print}' $1 | sort -n | head -n 1| wc -c)
+echo "Length of the longest sequence:" $longest_seq
+
+    shortest_seq=$(awk '!/>/{print}' $1 | sort | tail -n 1 | wc -c)
+echo "Length of the shortest sequence:" $shortest_seq
+
+    average_seq=$(($total_length / $number_of_seq)) 
+echo "Average sequence length:" $average_seq
+
+    amount_GC=$(awk '{gc_count += gsub(/[GgCc]/, "", $1)} END {print gc_count}' $1)
+    share_GC=$(awk 'BEGIN{print 10/5}' $1 ) 
+    percentage_GC=$(awk 'BEGIN{print 10*100}' $1)
+echo "GC Content (%):" $share_GC
