@@ -19,3 +19,4 @@ echo "Average sequence length:" $average_seq
     amount_GC=$(awk ' !/>/ {gc_count += gsub(/[GgCc]/, "", $1)} END {print gc_count}' $1)
     percentage_GC=$(echo "scale=2; $amount_GC / $total_length *100" |bc)
 echo "GC Content (%):" $percentage_GC
+
