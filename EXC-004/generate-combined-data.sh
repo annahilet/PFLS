@@ -51,7 +51,7 @@ for dir in "$RAW_DIR"/*/; do
             awk -v prefix="${culture_name}-UNBINNED" '
             BEGIN {OFS=""}
             /^>/ {
-                printf(">%s-%05d\n", prefix, seq_counter)
+                printf(">%s-%03d\n", prefix, seq_counter)
                 seq_counter++
                 next
             }
